@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* AI Interview Bot Design System - Ultra Professional Black & Gold */
+
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 45 100% 85%;
+    
+    /* Luxurious black and shiny gold theme */
+    --primary: 45 100% 55%;
+    --primary-glow: 45 100% 75%;
+    --secondary: 0 0% 8%;
+    --accent: 42 100% 65%;
+    
+    /* Professional gradients with depth */
+    --gradient-primary: linear-gradient(135deg, hsl(0 0% 4%) 0%, hsl(0 0% 8%) 25%, hsl(45 100% 55%) 100%);
+    --gradient-tech: linear-gradient(135deg, hsl(0 0% 4%) 0%, hsl(0 0% 6%) 50%, hsl(45 90% 45%) 100%);
+    --gradient-hr: linear-gradient(135deg, hsl(0 0% 6%) 0%, hsl(45 100% 55%) 100%);
+    --gradient-evaluation: linear-gradient(180deg, hsl(0 0% 6%) 0%, hsl(0 0% 4%) 100%);
+    
+    /* Sophisticated shadows and glows */
+    --shadow-ai: 0 32px 64px -12px hsl(45 100% 55% / 0.25);
+    --shadow-tech: 0 24px 48px -12px hsl(45 100% 55% / 0.2);
+    --shadow-glow: 0 0 60px hsl(45 100% 55% / 0.3);
+    --shadow-elegant: 0 8px 32px -8px hsl(0 0% 0% / 0.6);
+    
+    /* Premium animations */
+    --transition-ai: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+
+    --card: 0 0% 10%;
+    --card-foreground: 45 100% 90%;
+
+    --popover: 0 0% 10%;
+    --popover-foreground: 45 100% 90%;
+
+    --primary-foreground: 0 0% 8%;
+
+    --secondary-foreground: 45 100% 90%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 45 30% 65%;
+
+    --accent-foreground: 0 0% 8%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 45 50% 20%;
+    --input: 0 0% 12%;
+    --ring: 45 100% 50%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  /* Dark mode inherits from root since we're using dark theme */
+  .dark {
+    /* Keep existing dark theme variables if needed */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
