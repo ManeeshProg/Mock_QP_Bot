@@ -89,7 +89,7 @@ const Index = () => {
           <ResumeUpload 
             candidateName={interviewData.candidateName || ''}
             role={interviewData.role || ''}
-            onNext={(data) => handleStageChange('technical', data)} 
+            onNext={({ resumeContent, sessionId }) => handleStageChange('technical', { resumeContent, sessionId })} 
             onBack={() => handleStageChange('candidate-info')}
           />
         );

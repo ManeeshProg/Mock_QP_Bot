@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { fetchTechnicalQuestions } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -33,12 +34,24 @@ export const TechnicalInterview = ({ candidateName, role, resumeContent, session
     let cancelled = false;
     async function fetchQs() {
       try {
-        const resp = await (await import("@/lib/api")).fetchTechnicalQuestions(sessionId, role, 7, 8);
+        console.log('[TechnicalInterview] fetchQs called', { sessionId, role });
+        if (!sessionId) {
+          console.error('[TechnicalInterview] missing sessionId — aborting fetch');
+          if (!cancelled) {
+            setQuestions([]);
+            toast({ title: 'Missing session', description: 'Resume session was not created. Please re-upload your resume.', variant: 'destructive' });
+          }
+          return;
+        }
+        const resp = await fetchTechnicalQuestions(sessionId, role, 7, 8);
+        console.log('[TechnicalInterview] fetchTechnicalQuestions response', resp);
         if (!cancelled) {
           setQuestions(resp.questions || []);
         }
       } catch (e) {
         if (!cancelled) {
+          console.error('[TechnicalInterview] fetchTechnicalQuestions failed', e);
+          toast({ title: 'Failed to load questions', description: 'Try re-uploading resume or refresh.', variant: 'destructive' });
           setQuestions([]);
         }
       } finally {

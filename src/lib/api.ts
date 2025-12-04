@@ -1,7 +1,7 @@
 export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://3.109.217.174:8000";
 console.log("🔵 Loaded API module. BACKEND_URL =", BACKEND_URL);
 export async function uploadResumeExtract(sessionId: string, file: File) {
-	console.log("Calling backend:", BACKEND_URL);
+	console.log("[api] uploadResumeExtract called. BACKEND_URL=", BACKEND_URL, "sessionId=", sessionId, "file=", file?.name);
 	const form = new FormData();
 	form.append("session_id", sessionId);
 	form.append("file", file);
@@ -14,6 +14,7 @@ export async function uploadResumeExtract(sessionId: string, file: File) {
 }
 
 export async function fetchTechnicalQuestions(sessionId: string, role: string, countRole = 7, countResume = 8) {
+	console.log('[api] fetchTechnicalQuestions', { sessionId, role, countRole, countResume });
 	const resp = await fetch(`${BACKEND_URL}/questions/technical`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
@@ -24,6 +25,7 @@ export async function fetchTechnicalQuestions(sessionId: string, role: string, c
 }
 
 export async function fetchHrQuestions(sessionId: string) {
+	console.log('[api] fetchHrQuestions', { sessionId });
 	const resp = await fetch(`${BACKEND_URL}/questions/hr`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
@@ -34,6 +36,7 @@ export async function fetchHrQuestions(sessionId: string) {
 }
 
 export async function evaluateInterview(sessionId: string, role: string, technicalAnswers: Array<{question: string; answer: string}>, hrAnswers: Array<{question: string; answer: string}>) {
+	console.log('[api] evaluateInterview', { sessionId, role, technicalAnswersCount: technicalAnswers?.length, hrAnswersCount: hrAnswers?.length });
 	const resp = await fetch(`${BACKEND_URL}/evaluate`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },

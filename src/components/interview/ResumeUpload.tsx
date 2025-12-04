@@ -35,9 +35,13 @@ export const ResumeUpload = ({ candidateName, role, onNext, onBack }: ResumeUplo
     setIsProcessing(true);
 
     try {
-      const id = self.crypto?.randomUUID?.() || Math.random().toString(36).substring(2, 12);
+      const id = window.crypto?.randomUUID?.() 
+    || Math.random().toString(36).substring(2, 12);
+      console.log('[ResumeUpload] generated sessionId=', id, 'file=', file.name);
       setSessionId(id);
+      console.log('[ResumeUpload] calling uploadResumeExtract');
       const result = await uploadResumeExtract(id, file);
+      console.log('[ResumeUpload] uploadResumeExtract result', result);
       // Backend indexes chunks; we don't need full text in FE any more
       setResumeContent(`Indexed ${result.chunks_indexed} chunks for session ${id}`);
       toast({
@@ -45,6 +49,7 @@ export const ResumeUpload = ({ candidateName, role, onNext, onBack }: ResumeUplo
         description: `Analyzed and indexed (${result.chunks_indexed} chunks)`
       });
     } catch (error) {
+      console.error('[ResumeUpload] upload failed', error);
       toast({
         title: "Error processing resume",
         description: "Please try uploading again",

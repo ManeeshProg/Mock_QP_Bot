@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { fetchHrQuestions } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -94,7 +95,17 @@ export const HRInterview = ({ sessionId, remainingSeconds, onNext, onBack }: HRI
     let cancelled = false;
     async function fetchQs() {
       try {
-        const resp = await (await import("@/lib/api")).fetchHrQuestions(sessionId);
+        console.log('[HRInterview] fetchQs called', { sessionId });
+        if (!sessionId) {
+          console.error('[HRInterview] missing sessionId — aborting fetch');
+          if (!cancelled) {
+            setHrQuestions([]);
+            toast({ title: 'Missing session', description: 'Resume session was not created. Please re-upload your resume.', variant: 'destructive' });
+          }
+          return;
+        }
+        const resp = await fetchHrQuestions(sessionId);
+        console.log('[HRInterview] fetchHrQuestions response', resp);
         if (!cancelled) setHrQuestions(resp.questions || []);
       } catch (e) {
         if (!cancelled) setHrQuestions([]);

@@ -15,6 +15,7 @@ import {
   Target
 } from "lucide-react";
 import { InterviewData } from "@/pages/Index";
+import { evaluateInterview } from "@/lib/api";
 
 interface EvaluationReportProps {
   interviewData: InterviewData;
@@ -37,8 +38,13 @@ export const EvaluationReport = ({ interviewData, onRestart }: EvaluationReportP
         const role = interviewData.role || "";
         const technicalAnswers = (interviewData.technicalAnswers || []).map(a => ({ question: a.question, answer: a.answer, type: a.type }));
         const hrAnswers = (interviewData.hrAnswers || []).map(a => ({ question: a.question, answer: a.answer, type: a.type }));
-        const api = await import("@/lib/api");
-        const result = await api.evaluateInterview(sessionId, role, technicalAnswers, hrAnswers);
+        console.log('[EvaluationReport] running evaluation', { sessionId, role, technicalAnswersCount: technicalAnswers.length, hrAnswersCount: hrAnswers.length });
+        if (!sessionId) {
+          console.error('[EvaluationReport] missing sessionId — aborting evaluation');
+          setScores({ technical: 0, hr: 0, overall: 0 });
+          return;
+        }
+        const result = await evaluateInterview(sessionId, role, technicalAnswers, hrAnswers);
         // Expecting result.technical.score (percentage), result.hr.score (percentage), result.overall (0-100)
         const technicalScore = result.technical?.score ?? 0;
         const hrScore = result.hr?.score ?? 0;
