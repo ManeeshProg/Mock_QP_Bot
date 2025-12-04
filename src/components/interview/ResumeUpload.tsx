@@ -35,7 +35,7 @@ export const ResumeUpload = ({ candidateName, role, onNext, onBack }: ResumeUplo
     setIsProcessing(true);
 
     try {
-      const id = crypto.randomUUID();
+      const id = self.crypto?.randomUUID?.() || Math.random().toString(36).substring(2, 12);
       setSessionId(id);
       const result = await uploadResumeExtract(id, file);
       // Backend indexes chunks; we don't need full text in FE any more
