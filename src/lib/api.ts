@@ -1,4 +1,4 @@
-export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://3.109.217.174:8000";
+export const BACKEND_URL = "https://symposium-intent-lie-projector.trycloudflare.com";
 console.log("🔵 Loaded API module. BACKEND_URL =", BACKEND_URL);
 export async function uploadResumeExtract(sessionId: string, file: File) {
 	console.log("[api] uploadResumeExtract called. BACKEND_URL=", BACKEND_URL, "sessionId=", sessionId, "file=", file?.name);
