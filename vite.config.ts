@@ -3,30 +3,27 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 
-// Replace this with your Cloudflare Tunnel URL
-const allowedTunnelHost = "extraordinary-viii-carl-theatre.trycloudflare.com";
-
 export default defineConfig(({ mode }) => ({
   server: {
-    host: "::",           // allow external access
+    host: "0.0.0.0",
     port: 8080,
-    allowedHosts: [
-      allowedTunnelHost,  // allow Cloudflare HTTPS domain
-      "localhost",
-      "127.0.0.1"
-    ],
+
+    // Allow ALL hosts → required for Cloudflare Tunnel
+    allowedHosts: ["*"],
+
+    // Needed only if you use /api during dev
     proxy: {
       "/api": {
         target: "http://127.0.0.1:8000",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
+        rewrite: (p) => p.replace(/^\/api/, ""),
       },
     },
   },
 
   plugins: [
     react(),
-    mode === "development" && componentTagger()
+    mode === "development" && componentTagger(),
   ].filter(Boolean),
 
   resolve: {
