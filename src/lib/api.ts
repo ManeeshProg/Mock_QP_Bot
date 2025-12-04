@@ -1,4 +1,5 @@
 export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://3.109.217.174:8000";
+console.log("🔵 Loaded API module. BACKEND_URL =", BACKEND_URL);
 export async function uploadResumeExtract(sessionId: string, file: File) {
 	console.log("Calling backend:", BACKEND_URL);
 	const form = new FormData();
