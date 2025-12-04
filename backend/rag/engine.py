@@ -42,7 +42,7 @@ class RAGEngine:
 		embedding_model = model_name or os.getenv("RAG_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
 		self._embedder = SentenceTransformer(embedding_model)
 		self._session_to_index: Dict[str, SessionIndex] = {}
-		api_key = os.getenv("GEMINI_API_KEY", "AIzaSyAAEslKDiYdaC8K1Hvim6vcZB2zMya2nWc")
+		api_key = os.getenv("GEMINI_API_KEY", "AIzaSyBKLx2mlurxH-s7RZevCoEJiaCfMXcqbQY")
 		if api_key:
 			genai.configure(api_key=api_key)
 		self._has_gemini_key = bool(api_key)
