@@ -1,5 +1,4 @@
-export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
-
+export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://3.109.217.174:8000";
 export async function uploadResumeExtract(sessionId: string, file: File) {
 	const form = new FormData();
 	form.append("session_id", sessionId);
